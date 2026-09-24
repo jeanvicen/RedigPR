@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f4ee" />
+    <meta name="description" content="RedigPR — um espaço de prática para aprender a escrever redações com clareza, repertório e confiança." />
+    <title>RedigPR — Escrita com direção</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script type="module" src="/src/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+        <a class="brand" href="#inicio" aria-label="RedigPR, início" data-view-link="inicio">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M10 9h14a8 8 0 0 1 0 16h-4l9 7h-9L10 22V9Z" fill="currentColor"/><path d="M16 15v6h8a3 3 0 1 0 0-6h-8Z" fill="#f5f4ee"/></svg></span>
+          <span class="brand-copy"><strong>redig<span>pr</span></strong><small>LABORATÓRIO DE ESCRITA</small></span>
+        </a>
+
+        <button class="new-session" type="button" data-action="new-session">
+          <span class="plus-icon" aria-hidden="true">＋</span><span>Novo treino</span><kbd>⌘ K</kbd>
+        </button>
+
+        <p class="nav-label">SEU ESPAÇO</p>
+        <nav class="primary-nav" aria-label="Navegação">
+          <button class="nav-item is-active" type="button" data-view="inicio" aria-current="page">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+            <span>Visão geral</span>
+          </button>
+          <button class="nav-item" type="button" data-view="trilhas">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h7"/></svg>
+            <span>Trilhas</span><span class="nav-count">03</span>
+          </button>
+          <button class="nav-item" type="button" data-view="repertorio">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5 14.6 9l5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.8L12 3.5Z"/></svg>
+            <span>Repertório</span>
+          </button>
+          <button class="nav-item" type="button" data-view="textos">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 2.8H6a2 2 0 0 0-2 2v14.4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 2.8V9h6M8 13h8M8 17h8"/></svg>
+            <span>Meus textos</span>
+          </button>
+          <button class="nav-item" type="button" data-view="progresso">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/><path d="M2 19.5h20"/></svg>
+            <span>Meu progresso</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="weekly-mini">
+            <div class="weekly-mini-top"><span>RITMO DA SEMANA</span><span class="sparkle" aria-hidden="true">✳</span></div>
+            <strong>Um passo de cada vez.</strong>
+            <div class="week-dots" aria-label="Exemplo ilustrativo de atividade semanal"><i class="done"></i><i class="done"></i><i></i><i></i><i></i><i></i><i></i></div>
+            <small>2 de 5 dias de prática <span>· exemplo</span></small>
+          </div>
+          <button class="profile-chip" type="button" data-action="profile" aria-label="Perfil demonstrativo">
+            <span class="avatar" aria-hidden="true">A</span><span class="profile-copy"><strong>Área do estudante</strong><small>Seu espaço de evolução</small></span><span class="profile-dots" aria-hidden="true">···</span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="mobile-backdrop" data-action="close-menu" aria-hidden="true"></div>
+      <main class="workspace" id="conteudo">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" data-action="toggle-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+            <div class="breadcrumbs"><span>Seu espaço</span><span class="crumb-slash">/</span><strong id="page-name">Visão geral</strong></div>
+          </div>
+          <div class="topbar-right">
+            <span class="prototype-pill"><i aria-hidden="true"></i> PROTÓTIPO VISUAL</span>
+            <button class="icon-button notification-button" type="button" aria-label="Avisos demonstrativos" data-action="notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg><span class="notification-dot"></span></button>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <section class="view is-visible" data-panel="inicio" aria-labelledby="welcome-title">
+            <div class="welcome-row"><p class="eyebrow"><span class="eyebrow-mark"></span> <span id="current-date">SUA JORNADA DE ESCRITA</span> <span class="eyebrow-divider">/</span> JORNADA ENEM</p><span class="demo-note">Conteúdo ilustrativo</span></div>
+            <div class="hero-card">
+              <div class="hero-copy">
+                <span class="hero-overline">ESCREVER TAMBÉM SE APRENDE</span>
+                <h1 id="welcome-title">Toda boa ideia<br />merece <em>um bom texto.</em></h1>
+                <p>Treine com intenção, encontre argumentos mais fortes e descubra seu jeito de escrever — uma etapa de cada vez.</p>
+                <button class="button button-light" type="button" data-action="explore-trails">Explorar minha jornada <span aria-hidden="true">↗</span></button>
+                <div class="hero-footnote"><span class="tiny-sparkle" aria-hidden="true">✳</span> Um espaço para aprender no seu ritmo.</div>
+              </div>
+              <div class="hero-art" aria-hidden="true">
+                <div class="art-grid"></div><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+                <div class="paper-sheet"><span class="paper-label">IDEIA Nº 01</span><span class="paper-quote">“</span><span class="paper-line line-long"></span><span class="paper-line line-mid"></span><span class="paper-line line-short"></span><span class="paper-line line-long"></span><span class="paper-line line-mid"></span><span class="paper-sign">argumentar <b>→</b></span></div>
+                <div class="floating-tag tag-top"><span>01</span> repertório</div><div class="floating-tag tag-bottom"><span class="tag-star">✳</span> seu próximo passo</div>
+                <div class="art-dot dot-one"></div><div class="art-dot dot-two"></div>
+              </div>
+            </div>
+
+            <div class="section-heading dashboard-heading"><div><p class="eyebrow eyebrow-muted">SEU PONTO DE PARTIDA</p><h2>Uma jornada, muitas possibilidades.</h2></div><span class="section-caption">Tudo começa com a próxima ideia.</span></div>
+            <div class="quick-grid">
+              <article class="quick-card quick-card-featured"><div class="quick-icon icon-lime"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.6 9l5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.8L12 3.5Z"/></svg></div><span class="card-kicker">01 · CONSTRUA</span><h3>Repertório que faz sentido</h3><p>Conecte referências ao tema — sem decorar citações soltas.</p><button class="text-link" type="button" data-go="repertorio">Explorar repertório <span aria-hidden="true">→</span></button><span class="card-decoration decoration-star" aria-hidden="true">✳</span></article>
+              <article class="quick-card"><div class="quick-icon icon-peach"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h7"/></svg></div><span class="card-kicker">02 · APRENDA</span><h3>Trilhas no seu ritmo</h3><p>Da tese à proposta de intervenção, com passos claros.</p><button class="text-link" type="button" data-go="trilhas">Ver as trilhas <span aria-hidden="true">→</span></button></article>
+              <article class="quick-card"><div class="quick-icon icon-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2.8H6a2 2 0 0 0-2 2v14.4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 2.8V9h6M8 13h8M8 17h5"/></svg></div><span class="card-kicker">03 · PRATIQUE</span><h3>Escreva com confiança</h3><p>Organize suas ideias e acompanhe cada versão do texto.</p><button class="text-link" type="button" data-go="textos">Abrir meus textos <span aria-hidden="true">→</span></button></article>
+            </div>
+
+            <div class="bottom-grid">
+              <section class="continue-card"><div class="section-heading compact-heading"><div><p class="eyebrow eyebrow-muted">UM BOM COMEÇO</p><h2>Continue sua jornada</h2></div><span class="step-number">01 <i>/</i> 04</span></div><div class="lesson-row"><div class="lesson-symbol" aria-hidden="true"><span>R</span><i></i></div><div class="lesson-copy"><span class="card-kicker">TRILHA · FUNDAMENTOS</span><h3>O que faz uma redação funcionar?</h3><p>Conheça a estrutura por trás de um texto bem construído.</p><div class="progress-track" role="img" aria-label="Progresso demonstrativo: 32 por cento"><span style="width:32%"></span></div><small>32% concluído <span>· demonstração</span></small></div><button class="round-arrow" type="button" aria-label="Abrir aula demonstrativa" data-action="open-lesson">↗</button></div></section>
+              <section class="quote-card"><span class="quote-mark" aria-hidden="true">“</span><p>Escrever melhor não é usar palavras difíceis. É fazer cada ideia chegar mais longe.</p><div class="quote-credit"><span></span> UM PRINCÍPIO REDIGPR</div><span class="quote-decoration" aria-hidden="true">✳</span></section>
+            </div>
+            <footer class="page-footer"><span>REDIGPR <i>·</i> ESCRITA COM DIREÇÃO</span><span>Protótipo visual <i>·</i> dados de demonstração</span></footer>
+          </section>
+
+          <section class="view secondary-view" data-panel="trilhas" aria-labelledby="trilhas-title" hidden>
+            <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> APRENDA NO SEU RITMO</p><h1 id="trilhas-title">Uma boa redação<br />se constrói <em>por etapas.</em></h1><p>Trilhas pensadas para você entender o processo, praticar cada parte e escrever com mais segurança.</p></div>
+            <div class="path-grid">
+              <article class="path-card path-card-dark"><span class="path-index">TRILHA 01 <i>·</i> COMEÇO</span><div class="path-symbol symbol-a">A.</div><h2>Fundamentos da redação</h2><p>Entenda a estrutura, interprete o tema e encontre um ponto de partida.</p><div class="path-meta"><span>4 etapas</span><span>·</span><span>Primeiros passos</span></div><button class="button button-light" type="button" data-action="open-lesson">Conhecer a trilha <span aria-hidden="true">↗</span></button></article>
+              <article class="path-card"><span class="path-index">TRILHA 02 <i>·</i> ARGUMENTAÇÃO</span><div class="path-symbol symbol-b">02</div><h2>Argumentos com propósito</h2><p>Construa uma tese clara, desenvolva ideias e use repertório de forma produtiva.</p><div class="path-meta"><span>5 etapas</span><span>·</span><span>Em breve</span></div><button class="button button-outline" type="button" data-action="coming-soon">Ver etapas <span aria-hidden="true">↗</span></button></article>
+              <article class="path-card"><span class="path-index">TRILHA 03 <i>·</i> CONCLUSÃO</span><div class="path-symbol symbol-c">03</div><h2>Feche com clareza</h2><p>Aprenda a propor caminhos coerentes e concluir sem perder o fio da ideia.</p><div class="path-meta"><span>4 etapas</span><span>·</span><span>Em breve</span></div><button class="button button-outline" type="button" data-action="coming-soon">Ver etapas <span aria-hidden="true">↗</span></button></article>
+            </div><p class="demo-disclaimer">As trilhas e etapas nesta tela são uma proposta visual. O conteúdo didático será desenvolvido em uma próxima fase.</p>
+          </section>
+
+          <section class="view secondary-view" data-panel="repertorio" aria-labelledby="repertorio-title" hidden>
+            <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> IDEIAS QUE ABREM CAMINHOS</p><h1 id="repertorio-title">Referências para<br />pensar <em>mais longe.</em></h1><p>Um bom repertório não é enfeite: é uma ponte entre o tema e o argumento que você quer defender.</p></div>
+            <div class="filter-row"><span class="filter-label">EXEMPLOS DE CATEGORIAS</span><div class="filter-pills"><span class="filter-pill selected">Todos</span><span class="filter-pill">Sociedade</span><span class="filter-pill">Cultura</span><span class="filter-pill">Ciência</span></div></div>
+            <div class="reference-grid"><article class="reference-card"><span class="reference-type">SOCIOLOGIA <i>·</i> EXEMPLO</span><h2>O olhar de Zygmunt Bauman</h2><p>Modernidade líquida e as relações frágeis na sociedade contemporânea.</p><div class="reference-footer"><span>Conexão possível: relações sociais</span><button type="button" aria-label="Ver exemplo de uso" data-action="coming-soon">↗</button></div></article><article class="reference-card reference-card-tint"><span class="reference-type">LITERATURA <i>·</i> EXEMPLO</span><h2>As vozes de Conceição Evaristo</h2><p>Memória, identidade e desigualdades retratadas pela escrevivência.</p><div class="reference-footer"><span>Conexão possível: representatividade</span><button type="button" aria-label="Ver exemplo de uso" data-action="coming-soon">↗</button></div></article><article class="reference-card"><span class="reference-type">DIREITOS <i>·</i> EXEMPLO</span><h2>Constituição Federal de 1988</h2><p>Direitos fundamentais como referência para discutir cidadania e acesso.</p><div class="reference-footer"><span>Conexão possível: políticas públicas</span><button type="button" aria-label="Ver exemplo de uso" data-action="coming-soon">↗</button></div></article></div><p class="demo-disclaimer">Referências ilustrativas. A biblioteca e as conexões guiadas ainda não estão implementadas.</p>
+          </section>
+
+          <section class="view secondary-view" data-panel="textos" aria-labelledby="textos-title" hidden>
+            <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> RASCUNHAR TAMBÉM É AVANÇAR</p><h1 id="textos-title">Suas ideias, em<br />processo de <em>ganhar forma.</em></h1><p>Este será o seu espaço para começar um texto, guardar versões e perceber sua evolução.</p></div>
+            <div class="empty-writing"><div class="empty-illustration" aria-hidden="true"><span class="empty-paper"><i></i><i></i><i></i><b>✳</b></span><span class="empty-pencil">↗</span></div><span class="card-kicker">SEU CADERNO COMEÇA AQUI</span><h2>Nenhum texto por enquanto.</h2><p>A experiência de escrita está sendo desenhada. Em breve, suas ideias terão um lugar para crescer.</p><button class="button button-dark" type="button" data-action="coming-soon">Conhecer a experiência <span aria-hidden="true">↗</span></button></div>
+            <p class="demo-disclaimer">Nenhum texto é criado, salvo ou enviado nesta demonstração.</p>
+          </section>
+
+          <section class="view secondary-view" data-panel="progresso" aria-labelledby="progresso-title" hidden>
+            <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> EVOLUIR É UM PROCESSO</p><h1 id="progresso-title">Cada prática<br />conta uma <em>história.</em></h1><p>Um futuro painel para acompanhar sua prática sem transformar aprendizado em corrida.</p></div><div class="progress-preview"><div class="progress-score"><span class="score-ring"><span>02<small>/05</small></span></span><span class="card-kicker">DIAS DE PRÁTICA</span><strong>Seu ritmo, no seu tempo.</strong><p>Os indicadores desta tela são apenas uma prévia de design.</p></div><div class="progress-details"><span class="card-kicker">UMA SEMANA DE EXEMPLO</span><div class="activity-bars" aria-label="Gráfico de demonstração"><i style="height:42%"><span>SEG</span></i><i class="bar-active" style="height:76%"><span>TER</span></i><i style="height:29%"><span>QUA</span></i><i style="height:56%"><span>QUI</span></i><i style="height:21%"><span>SEX</span></i><i style="height:35%"><span>SÁB</span></i><i style="height:17%"><span>DOM</span></i></div><p>Exemplo ilustrativo · nenhuma atividade real foi registrada.</p></div></div><p class="demo-disclaimer">O acompanhamento real será conectado às atividades quando o produto evoluir.</p>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="prototype-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" type="button" aria-label="Fechar" data-action="close-dialog">×</button>
+      <span class="dialog-symbol" aria-hidden="true">✳</span><p class="eyebrow eyebrow-muted">PRÓXIMA ETAPA</p><h2 id="dialog-title">Uma ideia que está tomando forma.</h2><p class="dialog-copy">Esta é uma demonstração de interface. A experiência de treino, os conteúdos e a integração com IA serão construídos depois desta etapa de design.</p><button class="button button-dark" type="button" data-action="close-dialog">Voltar ao protótipo <span aria-hidden="true">↗</span></button>
+    </dialog>
+    <div class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
