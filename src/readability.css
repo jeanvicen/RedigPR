@@ -228,6 +228,10 @@
 :root[data-theme="dark"] .settings-label, :root[data-theme="dark"] .settings-toggle { color: #e0e9dd; }
 :root[data-theme="dark"] .editor-toolbar { border-color: var(--line); background: #18231ddb; }
 :root[data-theme="dark"] .editor-back, :root[data-theme="dark"] .editor-save-status { color: #d3e0d1; }
+:root[data-theme="dark"] .full-writing-form > label, :root[data-theme="dark"] .editor-label-row > label { color: #e0e9dd; }
+:root[data-theme="dark"] .editor-footer, :root[data-theme="dark"] .editor-footer-hint { color: #bfccbf; }
+:root[data-theme="dark"] .assistant-card .text-link { color: #c2dfbb; }
+:root[data-theme="dark"] .writing-guide-card li::before { background: #344638; color: #e0eed9; }
 :root[data-theme="dark"] .editor-private-tag { border-color: #465846; background: #2a392d; color: #d9e8d3; }
 :root[data-theme="dark"] .button-danger { border-color: #68413e; background: #3b2928; color: #f1c7bd; }
 :root[data-theme="dark"] .filter-empty { border-color: #465648; color: #c0cdc0; }
