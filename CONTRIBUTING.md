@@ -21,7 +21,7 @@ RedigPR está no estágio de protótipo interativo no navegador. Contribuições
 
 ## Conferência antes de enviar
 
-Sirva a raiz do projeto localmente com `python3 -m http.server 4173` e valide em navegador. Percorra navegação, menu, filtros, diálogos, exercícios e formulários. Teste configuração, criação/edição/retomada/exclusão de um rascunho, salvamento após sair do editor, contadores e exportação `.txt`. Confira também largura móvel, foco por teclado, persistência de preferências, console, requisições de rede e ausência de dados de teste no armazenamento. Remova qualquer rascunho sintético criado durante a verificação.
+Sirva a raiz do projeto localmente com `python3 -m http.server 4173` e valide em navegador. Percorra navegação, menu, busca e filtros de Repertório, guias, diálogos, exercícios e formulários. Confirme que o painel KAZER permanece identificado como prévia estática e não dispara chamadas à IA. Teste configuração, criação/edição/retomada/exclusão de um rascunho, salvamento após sair do editor, contadores e exportação `.txt`. Confira também largura móvel, foco por teclado, persistência de preferências, console, requisições de rede e ausência de dados de teste no armazenamento. Remova qualquer rascunho sintético criado durante a verificação.
 
 ## Commits e mudanças
 

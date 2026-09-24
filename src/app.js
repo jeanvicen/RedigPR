@@ -111,6 +111,7 @@ let currentView = "inicio";
 let drafts = loadDrafts();
 let preferences = loadPreferences();
 let editorState = null;
+let activeReferenceCategory = "todos";
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({
@@ -453,21 +454,41 @@ function deleteDraft(draftId) {
   showToast("Rascunho excluído.");
 }
 
-function updateReferenceFilter(category) {
+function normalizeSearch(value) {
+  return value.toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function updateReferenceFilter(category = activeReferenceCategory) {
+  activeReferenceCategory = category;
+  const queryInput = document.querySelector("#reference-search");
+  const query = queryInput ? queryInput.value.trim() : "";
+  const normalizedQuery = normalizeSearch(query);
   const cards = [...document.querySelectorAll(".reference-card[data-category]")];
   let visibleCount = 0;
+
   for (const card of cards) {
-    const visible = category === "todos" || card.dataset.category === category;
+    const categoryMatches = category === "todos" || card.dataset.category === category;
+    const searchText = normalizeSearch(`${card.dataset.search || ""} ${card.textContent}`);
+    const queryMatches = !normalizedQuery || searchText.includes(normalizedQuery);
+    const visible = categoryMatches && queryMatches;
     card.hidden = !visible;
     if (visible) visibleCount += 1;
   }
+
   for (const button of document.querySelectorAll("[data-filter]")) {
     const active = button.dataset.filter === category;
     button.classList.toggle("selected", active);
     button.setAttribute("aria-pressed", String(active));
   }
-  document.querySelector("#filter-empty").hidden = visibleCount > 0;
+
+  const emptyState = document.querySelector("#filter-empty");
+  emptyState.hidden = visibleCount > 0;
+  emptyState.textContent = query
+    ? `Nenhuma referência encontrada para “${query}”. Tente outro termo ou categoria.`
+    : "Nenhuma referência nesta categoria ainda. Escolha outra categoria.";
   document.querySelector(".reference-grid").hidden = visibleCount === 0;
+  const count = document.querySelector("#reference-count");
+  count.textContent = `${visibleCount} ${visibleCount === 1 ? "referência" : "referências"}`;
 }
 
 function openProfile() {
@@ -483,9 +504,9 @@ function openNotifications() {
 }
 
 function openAiInfo() {
-  showDialog("ASSISTENTE DE ESCRITA · GROQ", "Ajuda para pensar melhor, não para escrever por você.", `
-    <p>A proposta é que a IA ajude a revisar uma tese, explorar caminhos de argumento e dar sugestões explicadas. A integração segura com a Groq ainda não está conectada; por enquanto, este painel não lê nem envia seu texto.</p>
-    <div class="lesson-takeaway"><strong>Quando estiver disponível</strong><p>Você poderá revisar cada sugestão e decidir se faz sentido para a sua redação. A autoria continua sendo sua.</p></div>
+  showDialog("KAZER · PRÉVIA DA ASSISTENTE", "Comentários ao lado, com você no controle.", `
+    <p>A proposta é que a KAZER acompanhe seu texto em um painel lateral, explique o que está funcionando e ofereça sugestões enquanto você escreve. A conexão com a Groq ficará para uma etapa futura; este exemplo é fixo, não foi gerado por IA e seu texto não é enviado.</p>
+    <div class="lesson-takeaway"><strong>Privacidade primeiro</strong><p>Quando a integração for ativada, o envio do rascunho será explicado e controlado pelo estudante. A chave da Groq ficará somente no servidor.</p></div>
     <div class="dialog-actions"><button class="button button-dark" type="button" data-action="close-dialog">Entendi</button></div>`);
 }
 
@@ -497,7 +518,7 @@ function openSettings() {
       <label class="settings-label" for="font-size-setting">Tamanho das letras</label>
       <select class="settings-select" id="font-size-setting" name="fontSize"><option value="normal" ${preferences.fontSize === "normal" ? "selected" : ""}>Padrão</option><option value="large" ${preferences.fontSize === "large" ? "selected" : ""}>Grande</option><option value="xlarge" ${preferences.fontSize === "xlarge" ? "selected" : ""}>Bem grande</option></select>
       <label class="settings-toggle"><input type="checkbox" name="reduceMotion" ${preferences.reduceMotion ? "checked" : ""}><span>Reduzir animações</span></label>
-      <section class="settings-feature"><span class="card-kicker">ASSISTENTE DE ESCRITA</span><h3>IA por Groq</h3><p>Planejada para sugerir caminhos e explicar melhorias. Ainda não conectada; nada é enviado para IA nesta versão.</p><button class="text-link" type="button" data-action="ai-info">Ver como funcionará <span aria-hidden="true">→</span></button></section>
+      <section class="settings-feature"><span class="card-kicker">ASSISTENTE NO EDITOR</span><h3>KAZER · Groq no futuro</h3><p>Prévia da experiência lateral de comentários. A API ainda não foi ligada e nenhum texto é enviado.</p><button class="text-link" type="button" data-action="ai-info">Ver como funcionará <span aria-hidden="true">→</span></button></section>
       <section class="settings-credit"><span class="settings-credit-mark" aria-hidden="true">K</span><div><span class="card-kicker">APOIO AO PROJETO</span><strong>KAZER</strong><p>Uma iniciativa RedigPR com apoio da KAZER.</p></div></section>
       <div class="dialog-actions"><button class="button button-outline" type="button" data-action="reset-settings">Restaurar padrão</button><button class="button button-dark" type="button" data-action="close-dialog">Concluir</button></div>
     </form>`, { focus: "input[name='theme']" });
@@ -617,6 +638,10 @@ document.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("input", (event) => {
+  if (event.target.id === "reference-search") {
+    updateReferenceFilter();
+    return;
+  }
   if (!writingWorkspace.hidden && (event.target === essayBody || event.target === essayTitle)) {
     scheduleEditorSave();
   }

@@ -8,23 +8,23 @@
 
 O RedigPR está sendo pensado como um ambiente de prática de redação, com foco em ensinar o processo — não apenas entregar uma nota. A experiência deverá ajudar o estudante a compreender o tema, formular uma tese, construir argumentos, usar repertório com pertinência e revisar o texto.
 
-A integração planejada com modelos da Groq deverá apoiar sugestões personalizadas e feedback formativo. **Ela não está implementada nesta versão.** Toda futura chamada à IA deverá passar por um serviço de servidor; chaves e segredos nunca devem ser expostos no navegador.
+A assistente **KAZER**, planejada para usar a API da Groq, deverá exibir comentários e sugestões em uma lateral enquanto o estudante escreve. **A integração não está ligada nesta versão.** Quando chegar a hora, as chamadas deverão passar por um serviço de servidor; chaves e segredos nunca devem ser expostos no navegador.
 
 ## O que existe nesta etapa
 
 - Painel inicial responsivo com uma identidade visual editorial e acolhedora.
 - Cinco áreas navegáveis: Visão geral, Trilhas, Repertório, Meus textos e Meu progresso.
 - Treino guiado no navegador para praticar tese, argumentação, conclusão ou uma ideia livre.
-- Roteiros didáticos curtos e filtros por categoria; exemplos de repertório abrem guias para conectar referência e argumento.
+- Repertório enxuto, com busca por autor/obra/conceito, filtros por categoria e guias breves para conectar referências a argumentos.
 - Editor dedicado e amplo, com roteiro lateral, contadores de palavras/caracteres, salvamento automático local durante a digitação, retomada de rascunhos e exportação `.txt`.
 - Configurações funcionais de modo claro/escuro, tamanho de texto (padrão, grande ou bem grande) e redução de animações; preferências guardadas neste navegador.
-- Assistente de redação apresentado como planejado, mas ainda indisponível: **Groq não está conectada**, o painel não analisa nem envia textos.
+- Prévia lateral da assistente KAZER com exemplo estático identificado como demonstração; nenhuma análise por IA ou chamada à Groq está ativa.
 - Menu móvel, diálogos acessíveis, foco visível, ilustrações com animação CSS em perspectiva 3D e atalhos de teclado.
 - Crédito visual “Uma iniciativa com apoio da KAZER” no rodapé e nas configurações.
 
 Os temas, referências, métricas e roteiros são **conteúdo demonstrativo**, não material didático validado, avaliação oficial ou correção por IA. Rascunhos e preferências ficam apenas no `localStorage` deste navegador e dispositivo; nada é enviado a um servidor. O modo escuro, os tamanhos de texto e a redução de animações ajudam a adaptar a leitura a cada estudante.
 
-A experiência pública da Redação Paraná serviu apenas como referência de contexto institucional e acessibilidade: [página pública da plataforma](https://redacao.pr.gov.br/) e [orientação de acesso do Governo do Paraná](https://www.educacao.pr.gov.br/servicos/Educacao/Ensino-Fundamental/Acessar-a-plataforma-Redacao-Parana-qJ3gA7on), que documenta opções de contraste e ajuste de texto. O editor autenticado não foi inspecionado nem reproduzido.
+A experiência pública da Redação Paraná serviu como referência de contexto institucional e acessibilidade: [página pública da plataforma](https://redacao.pr.gov.br/) e [orientação de acesso do Governo do Paraná](https://www.educacao.pr.gov.br/servicos/Educacao/Ensino-Fundamental/Acessar-a-plataforma-Redacao-Parana-qJ3gA7on), que documenta opções de contraste e ajuste de texto. Para reduzir ruído visual, o redesenho também considera o princípio de design minimalista da [Nielsen Norman Group](https://www.nngroup.com/articles/aesthetic-minimalist-design/). O editor autenticado da Redação Paraná não foi inspecionado nem reproduzido.
 
 ## Executar localmente
 

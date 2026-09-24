@@ -14,7 +14,7 @@ Esta etapa valida a direção visual e fluxos básicos. Usa HTML, CSS e JavaScri
 
 - **Visão geral:** proposta, atalhos e entrada para a prática.
 - **Trilhas:** roteiros didáticos curtos sobre fundamentos, argumentação e conclusão.
-- **Repertório:** referências demonstrativas, filtro por categoria e guias de conexão com argumentos.
+- **Repertório:** biblioteca enxuta com busca por autor/obra/conceito, filtros por categoria e guias breves de conexão com argumentos.
 - **Meus textos:** editor de redação amplo, exercícios guiados e rascunhos locais.
 - **Meu progresso:** painel visual ilustrativo; os indicadores não medem atividades reais.
 
@@ -23,10 +23,10 @@ Esta etapa valida a direção visual e fluxos básicos. Usa HTML, CSS e JavaScri
 - Os botões de navegação abrem as cinco áreas, atualizam o título e mantêm o estado selecionado.
 - “Novo treino” e Ctrl/⌘ K abrem um seletor de foco e tema; ao iniciar, o estudante chega ao editor amplo com um enunciado contextual.
 - Os roteiros das trilhas mostram uma explicação contextual; “Praticar esta etapa” abre um exercício relacionado.
-- Os filtros do repertório mostram as referências correspondentes. Cada guia apresenta uma estrutura para o estudante completar com suas próprias palavras.
+- A busca do repertório aceita autor, obra e conceito; os filtros por categoria refinam a lista. Cada guia apresenta uma estrutura breve para o estudante completar com suas palavras.
 - O editor permite criar, retomar, alterar e excluir rascunhos; conta palavras e caracteres, salva alterações localmente durante a digitação e exporta o texto em `.txt`.
 - O modo claro/escuro, três tamanhos de texto e a opção de reduzir animações podem ser configurados e persistem localmente.
-- O cartão do assistente explica o plano de futura integração com Groq, sem simular resposta ou análise.
+- O painel lateral da KAZER mostra uma prévia fixa, identificada como exemplo estático; não simula análise nem chama a Groq.
 - Ações de configuração, exportação, navegação, exercícios e guias têm efeitos no protótipo; avisos, estatísticas e conteúdos demonstrativos permanecem identificados como tais.
 
 Rascunhos e preferências são armazenados apenas no `localStorage` do navegador e dispositivo em uso. O armazenamento pode ser apagado ao limpar os dados do navegador, não sincroniza entre dispositivos e não é backup. Não há envio de redações para qualquer servidor ou modelo, e **Groq não está conectada**.
@@ -53,6 +53,7 @@ Rascunhos e preferências são armazenados apenas no `localStorage` do navegador
 - A chave da Groq deve existir apenas em ambiente seguro de servidor, nunca no código cliente, em variável pública ou no histórico do Git.
 - O navegador deverá conversar com uma API própria que valide entrada, autenticação, limites e autorização antes de chamar o provedor.
 - Definir consentimento, retenção, exclusão, minimização de dados e tratamento dos textos antes de qualquer envio de redação a um modelo.
+- Integrar a KAZER como painel lateral que transmita sugestões formativas conforme o estudante escreve; qualquer revisão automática deverá ter consentimento explícito, evitar uma chamada por tecla e ser interrompível.
 - Exibir feedback como sugestão educacional revisável, sem apresentá-lo como nota oficial ou julgamento definitivo.
 - Versionar prompts e testar qualidade, viés, alucinações e segurança antes de liberar para estudantes.
 
