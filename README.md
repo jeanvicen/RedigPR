@@ -2,7 +2,7 @@
 
 **Escrita com direção.** Uma experiência de aprendizagem para ajudar estudantes a entender, planejar e escrever redações com mais clareza, repertório e segurança.
 
-> **Estado atual:** protótipo visual da primeira etapa. O projeto apresenta telas e navegação demonstrativas; ainda não oferece aulas completas, salvamento de textos, correção automática nem integração com IA.
+> **Estado atual:** protótipo responsivo com interações locais. Inclui roteiros curtos de prática, exemplos guiados de repertório e rascunhos guardados neste navegador. Não há conta, sincronização, correção automática nem integração com IA.
 
 ## Visão do produto
 
@@ -13,12 +13,13 @@ A integração planejada com modelos da Groq deverá apoiar sugestões personali
 ## O que existe nesta etapa
 
 - Painel inicial responsivo com uma identidade visual editorial e acolhedora.
-- Navegação demonstrativa entre Visão geral, Trilhas, Repertório, Meus textos e Meu progresso.
-- Elementos interativos de protótipo, incluindo menu móvel, aviso, diálogo e atalho de teclado.
-- Conteúdo e métricas explicitamente identificados como exemplos ilustrativos.
-- HTML semântico, estilos adaptáveis, foco visível, suporte a teclado e respeito à preferência por movimento reduzido.
+- Cinco áreas navegáveis: Visão geral, Trilhas, Repertório, Meus textos e Meu progresso.
+- Treino guiado no navegador para praticar tese, argumentação, conclusão ou uma ideia livre.
+- Roteiros didáticos curtos e filtros por categoria; exemplos de repertório abrem guias para conectar referência e argumento.
+- Editor de rascunhos com criação, retomada, edição e exclusão. Os textos ficam no `localStorage` deste navegador e dispositivo; não há sincronização.
+- Menu móvel, diálogo acessível, avisos, atalhos de teclado, foco visível e respeito à preferência por movimento reduzido.
 
-Os textos, referências, trilhas, percentuais e indicadores são **conteúdo de demonstração**, não material didático validado nem dados reais de estudante. Nenhuma redação é enviada, corrigida ou armazenada.
+Os temas, referências, métricas e feedbacks são **conteúdo demonstrativo**: não equivalem a material didático validado, avaliação oficial nem correção feita por IA. Rascunhos só são guardados localmente quando a pessoa escolhe salvar; nada é enviado a um servidor.
 
 ## Executar localmente
 
@@ -44,17 +45,18 @@ Abra `http://localhost:4173` no navegador. É necessário usar um servidor local
 │   └── PRODUCT_SCOPE.md
 └── src/
     ├── app.js
+    ├── readability.css
     └── styles.css
 ```
 
 - `index.html`: estrutura semântica das telas do protótipo.
-- `src/styles.css`: tokens visuais, componentes, animações e regras responsivas.
-- `src/app.js`: navegação e interações locais, sem chamadas de rede.
+- `src/styles.css` e `src/readability.css`: identidade visual, componentes, tipografia legível, animações e regras responsivas.
+- `src/app.js`: navegação, exercícios e rascunhos locais; sem chamadas de rede.
 - `docs/PRODUCT_SCOPE.md`: escopo, limites e próximos marcos de produto.
 
 ## Princípios de desenvolvimento
 
-1. **Preservar o escopo:** nesta primeira fase, trabalhar a experiência visual; não simular como prontas funcionalidades de ensino, persistência ou IA.
+1. **Preservar o escopo:** manter os exercícios como apoio didático local; não apresentá-los como currículo validado, avaliação oficial ou IA ativa.
 2. **Manter a interface honesta:** deixar dados fictícios e interações demonstrativas claramente identificados.
 3. **Segurança desde o desenho:** nunca colocar tokens, chaves da Groq ou credenciais em HTML, JavaScript entregue ao navegador ou no histórico do Git.
 4. **Acessibilidade e responsividade:** manter navegação por teclado, foco perceptível, semântica, contraste e adaptação a telas estreitas; oferecer alternativa a animações não essenciais.
@@ -64,7 +66,8 @@ Abra `http://localhost:4173` no navegador. É necessário usar um servidor local
 ## Verificação antes de publicar
 
 - Abrir o protótipo em desktop e em largura móvel.
-- Percorrer os links, a navegação, o diálogo e o menu usando teclado e toque.
+- Percorrer cada botão e link, os filtros, o diálogo, os formulários e o menu usando teclado e toque.
+- Criar, editar e excluir um rascunho de teste; conferir que o armazenamento é local e nenhuma requisição envia o texto.
 - Conferir console do navegador, carregamento de assets e ausência de erros.
 - Verificar se textos e estatísticas de demonstração continuam sinalizados.
 - Conferir o diff e procurar segredos antes de enviar alterações.

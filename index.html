@@ -8,6 +8,7 @@
     <title>RedigPR — Escrita com direção</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/readability.css" />
     <script type="module" src="/src/app.js"></script>
   </head>
   <body>
@@ -20,7 +21,7 @@
         </a>
 
         <button class="new-session" type="button" data-action="new-session">
-          <span class="plus-icon" aria-hidden="true">＋</span><span>Novo treino</span><kbd>⌘ K</kbd>
+          <span class="plus-icon" aria-hidden="true">＋</span><span>Novo treino</span><kbd>Ctrl/⌘ K</kbd>
         </button>
 
         <p class="nav-label">SEU ESPAÇO</p>
@@ -54,7 +55,7 @@
             <div class="week-dots" aria-label="Exemplo ilustrativo de atividade semanal"><i class="done"></i><i class="done"></i><i></i><i></i><i></i><i></i><i></i></div>
             <small>2 de 5 dias de prática <span>· exemplo</span></small>
           </div>
-          <button class="profile-chip" type="button" data-action="profile" aria-label="Perfil demonstrativo">
+          <button class="profile-chip" type="button" data-action="profile" aria-label="Abrir área do estudante">
             <span class="avatar" aria-hidden="true">A</span><span class="profile-copy"><strong>Área do estudante</strong><small>Seu espaço de evolução</small></span><span class="profile-dots" aria-hidden="true">···</span>
           </button>
         </div>
@@ -69,7 +70,7 @@
           </div>
           <div class="topbar-right">
             <span class="prototype-pill"><i aria-hidden="true"></i> PROTÓTIPO VISUAL</span>
-            <button class="icon-button notification-button" type="button" aria-label="Avisos demonstrativos" data-action="notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg><span class="notification-dot"></span></button>
+            <button class="icon-button notification-button" type="button" aria-label="Abrir avisos" data-action="notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg></button>
           </div>
         </header>
 
@@ -103,28 +104,31 @@
               <section class="continue-card"><div class="section-heading compact-heading"><div><p class="eyebrow eyebrow-muted">UM BOM COMEÇO</p><h2>Continue sua jornada</h2></div><span class="step-number">01 <i>/</i> 04</span></div><div class="lesson-row"><div class="lesson-symbol" aria-hidden="true"><span>R</span><i></i></div><div class="lesson-copy"><span class="card-kicker">TRILHA · FUNDAMENTOS</span><h3>O que faz uma redação funcionar?</h3><p>Conheça a estrutura por trás de um texto bem construído.</p><div class="progress-track" role="img" aria-label="Progresso demonstrativo: 32 por cento"><span style="width:32%"></span></div><small>32% concluído <span>· demonstração</span></small></div><button class="round-arrow" type="button" aria-label="Abrir aula demonstrativa" data-action="open-lesson">↗</button></div></section>
               <section class="quote-card"><span class="quote-mark" aria-hidden="true">“</span><p>Escrever melhor não é usar palavras difíceis. É fazer cada ideia chegar mais longe.</p><div class="quote-credit"><span></span> UM PRINCÍPIO REDIGPR</div><span class="quote-decoration" aria-hidden="true">✳</span></section>
             </div>
-            <footer class="page-footer"><span>REDIGPR <i>·</i> ESCRITA COM DIREÇÃO</span><span>Protótipo visual <i>·</i> dados de demonstração</span></footer>
+            <footer class="page-footer"><span>REDIGPR <i>·</i> ESCRITA COM DIREÇÃO</span><span>Protótipo interativo <i>·</i> conteúdo ilustrativo</span></footer>
           </section>
 
           <section class="view secondary-view" data-panel="trilhas" aria-labelledby="trilhas-title" hidden>
             <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> APRENDA NO SEU RITMO</p><h1 id="trilhas-title">Uma boa redação<br />se constrói <em>por etapas.</em></h1><p>Trilhas pensadas para você entender o processo, praticar cada parte e escrever com mais segurança.</p></div>
             <div class="path-grid">
-              <article class="path-card path-card-dark"><span class="path-index">TRILHA 01 <i>·</i> COMEÇO</span><div class="path-symbol symbol-a">A.</div><h2>Fundamentos da redação</h2><p>Entenda a estrutura, interprete o tema e encontre um ponto de partida.</p><div class="path-meta"><span>4 etapas</span><span>·</span><span>Primeiros passos</span></div><button class="button button-light" type="button" data-action="open-lesson">Conhecer a trilha <span aria-hidden="true">↗</span></button></article>
-              <article class="path-card"><span class="path-index">TRILHA 02 <i>·</i> ARGUMENTAÇÃO</span><div class="path-symbol symbol-b">02</div><h2>Argumentos com propósito</h2><p>Construa uma tese clara, desenvolva ideias e use repertório de forma produtiva.</p><div class="path-meta"><span>5 etapas</span><span>·</span><span>Em breve</span></div><button class="button button-outline" type="button" data-action="coming-soon">Ver etapas <span aria-hidden="true">↗</span></button></article>
-              <article class="path-card"><span class="path-index">TRILHA 03 <i>·</i> CONCLUSÃO</span><div class="path-symbol symbol-c">03</div><h2>Feche com clareza</h2><p>Aprenda a propor caminhos coerentes e concluir sem perder o fio da ideia.</p><div class="path-meta"><span>4 etapas</span><span>·</span><span>Em breve</span></div><button class="button button-outline" type="button" data-action="coming-soon">Ver etapas <span aria-hidden="true">↗</span></button></article>
+              <article class="path-card path-card-dark"><span class="path-index">TRILHA 01 <i>·</i> COMEÇO</span><div class="path-symbol symbol-a">A.</div><h2>Fundamentos da redação</h2><p>Entenda a estrutura, interprete o tema e encontre um ponto de partida.</p><div class="path-meta"><span>4 etapas</span><span>·</span><span>Primeiros passos</span></div><button class="button button-light" type="button" data-action="open-lesson" data-lesson="fundamentos">Começar fundamentos <span aria-hidden="true">↗</span></button></article>
+              <article class="path-card"><span class="path-index">TRILHA 02 <i>·</i> ARGUMENTAÇÃO</span><div class="path-symbol symbol-b">02</div><h2>Argumentos com propósito</h2><p>Construa uma tese clara, desenvolva ideias e use repertório de forma produtiva.</p><div class="path-meta"><span>5 etapas</span><span>·</span><span>Roteiro de prática</span></div><button class="button button-outline" type="button" data-action="open-lesson" data-lesson="argumentacao">Ver o roteiro <span aria-hidden="true">↗</span></button></article>
+              <article class="path-card"><span class="path-index">TRILHA 03 <i>·</i> CONCLUSÃO</span><div class="path-symbol symbol-c">03</div><h2>Feche com clareza</h2><p>Aprenda a propor caminhos coerentes e concluir sem perder o fio da ideia.</p><div class="path-meta"><span>4 etapas</span><span>·</span><span>Roteiro de prática</span></div><button class="button button-outline" type="button" data-action="open-lesson" data-lesson="conclusao">Ver o roteiro <span aria-hidden="true">↗</span></button></article>
             </div><p class="demo-disclaimer">As trilhas e etapas nesta tela são uma proposta visual. O conteúdo didático será desenvolvido em uma próxima fase.</p>
           </section>
 
           <section class="view secondary-view" data-panel="repertorio" aria-labelledby="repertorio-title" hidden>
             <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> IDEIAS QUE ABREM CAMINHOS</p><h1 id="repertorio-title">Referências para<br />pensar <em>mais longe.</em></h1><p>Um bom repertório não é enfeite: é uma ponte entre o tema e o argumento que você quer defender.</p></div>
-            <div class="filter-row"><span class="filter-label">EXEMPLOS DE CATEGORIAS</span><div class="filter-pills"><span class="filter-pill selected">Todos</span><span class="filter-pill">Sociedade</span><span class="filter-pill">Cultura</span><span class="filter-pill">Ciência</span></div></div>
-            <div class="reference-grid"><article class="reference-card"><span class="reference-type">SOCIOLOGIA <i>·</i> EXEMPLO</span><h2>O olhar de Zygmunt Bauman</h2><p>Modernidade líquida e as relações frágeis na sociedade contemporânea.</p><div class="reference-footer"><span>Conexão possível: relações sociais</span><button type="button" aria-label="Ver exemplo de uso" data-action="coming-soon">↗</button></div></article><article class="reference-card reference-card-tint"><span class="reference-type">LITERATURA <i>·</i> EXEMPLO</span><h2>As vozes de Conceição Evaristo</h2><p>Memória, identidade e desigualdades retratadas pela escrevivência.</p><div class="reference-footer"><span>Conexão possível: representatividade</span><button type="button" aria-label="Ver exemplo de uso" data-action="coming-soon">↗</button></div></article><article class="reference-card"><span class="reference-type">DIREITOS <i>·</i> EXEMPLO</span><h2>Constituição Federal de 1988</h2><p>Direitos fundamentais como referência para discutir cidadania e acesso.</p><div class="reference-footer"><span>Conexão possível: políticas públicas</span><button type="button" aria-label="Ver exemplo de uso" data-action="coming-soon">↗</button></div></article></div><p class="demo-disclaimer">Referências ilustrativas. A biblioteca e as conexões guiadas ainda não estão implementadas.</p>
+            <div class="filter-row"><span class="filter-label">FILTRAR REFERÊNCIAS</span><div class="filter-pills" role="group" aria-label="Filtrar referências por categoria"><button class="filter-pill selected" type="button" data-filter="todos" aria-pressed="true">Todas</button><button class="filter-pill" type="button" data-filter="sociedade" aria-pressed="false">Sociedade</button><button class="filter-pill" type="button" data-filter="cultura" aria-pressed="false">Cultura</button><button class="filter-pill" type="button" data-filter="cidadania" aria-pressed="false">Cidadania</button></div></div>
+            <p class="filter-empty" id="filter-empty" hidden>Nenhuma referência nesta categoria ainda. Escolha outro filtro.</p>
+            <div class="reference-grid"><article class="reference-card" data-category="sociedade"><span class="reference-type">SOCIOLOGIA <i>·</i> EXEMPLO</span><h2>O olhar de Zygmunt Bauman</h2><p>Modernidade líquida e as relações frágeis na sociedade contemporânea.</p><div class="reference-footer"><span>Conexão possível: relações sociais</span><button type="button" aria-label="Ver como usar Bauman em um argumento" data-action="reference-detail" data-reference="bauman">Ver guia <span aria-hidden="true">↗</span></button></div></article><article class="reference-card reference-card-tint" data-category="cultura"><span class="reference-type">LITERATURA <i>·</i> EXEMPLO</span><h2>As vozes de Conceição Evaristo</h2><p>Memória, identidade e desigualdades retratadas pela escrevivência.</p><div class="reference-footer"><span>Conexão possível: representatividade</span><button type="button" aria-label="Ver como usar Conceição Evaristo em um argumento" data-action="reference-detail" data-reference="evaristo">Ver guia <span aria-hidden="true">↗</span></button></div></article><article class="reference-card" data-category="cidadania"><span class="reference-type">DIREITOS <i>·</i> EXEMPLO</span><h2>Constituição Federal de 1988</h2><p>Direitos fundamentais como referência para discutir cidadania e acesso.</p><div class="reference-footer"><span>Conexão possível: políticas públicas</span><button type="button" aria-label="Ver como usar a Constituição em um argumento" data-action="reference-detail" data-reference="constituicao">Ver guia <span aria-hidden="true">↗</span></button></div></article></div><p class="demo-disclaimer">Referências ilustrativas. Confira a fonte original e o contexto antes de usar uma referência na redação.</p>
           </section>
 
           <section class="view secondary-view" data-panel="textos" aria-labelledby="textos-title" hidden>
-            <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> RASCUNHAR TAMBÉM É AVANÇAR</p><h1 id="textos-title">Suas ideias, em<br />processo de <em>ganhar forma.</em></h1><p>Este será o seu espaço para começar um texto, guardar versões e perceber sua evolução.</p></div>
-            <div class="empty-writing"><div class="empty-illustration" aria-hidden="true"><span class="empty-paper"><i></i><i></i><i></i><b>✳</b></span><span class="empty-pencil">↗</span></div><span class="card-kicker">SEU CADERNO COMEÇA AQUI</span><h2>Nenhum texto por enquanto.</h2><p>A experiência de escrita está sendo desenhada. Em breve, suas ideias terão um lugar para crescer.</p><button class="button button-dark" type="button" data-action="coming-soon">Conhecer a experiência <span aria-hidden="true">↗</span></button></div>
-            <p class="demo-disclaimer">Nenhum texto é criado, salvo ou enviado nesta demonstração.</p>
+            <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> RASCUNHAR TAMBÉM É AVANÇAR</p><h1 id="textos-title">Suas ideias, em<br />processo de <em>ganhar forma.</em></h1><p>Escreva, revise e guarde rascunhos neste navegador. Só você acessa este espaço neste dispositivo.</p></div>
+            <div class="draft-header" id="draft-header" hidden><div><p class="eyebrow eyebrow-muted">SEU CADERNO</p><h2>Rascunhos guardados <span id="draft-count">0</span></h2></div><button class="button button-dark" type="button" data-action="create-text">Novo rascunho <span aria-hidden="true">＋</span></button></div>
+            <div class="draft-list" id="draft-list" aria-live="polite"></div>
+            <div class="empty-writing" id="empty-writing"><div class="empty-illustration" aria-hidden="true"><span class="empty-paper"><i></i><i></i><i></i><b>✳</b></span><span class="empty-pencil">↗</span></div><span class="card-kicker">SEU CADERNO COMEÇA AQUI</span><h2>Nenhum texto por enquanto.</h2><p>Comece um rascunho ou faça um treino guiado. Você poderá voltar e editar o texto depois.</p><button class="button button-dark" type="button" data-action="create-text">Começar a escrever <span aria-hidden="true">↗</span></button></div>
+            <p class="demo-disclaimer">Rascunhos ficam somente neste navegador; não há conta, sincronização nem envio para IA.</p>
           </section>
 
           <section class="view secondary-view" data-panel="progresso" aria-labelledby="progresso-title" hidden>
@@ -136,7 +140,7 @@
 
     <dialog class="prototype-dialog" aria-labelledby="dialog-title">
       <button class="dialog-close" type="button" aria-label="Fechar" data-action="close-dialog">×</button>
-      <span class="dialog-symbol" aria-hidden="true">✳</span><p class="eyebrow eyebrow-muted">PRÓXIMA ETAPA</p><h2 id="dialog-title">Uma ideia que está tomando forma.</h2><p class="dialog-copy">Esta é uma demonstração de interface. A experiência de treino, os conteúdos e a integração com IA serão construídos depois desta etapa de design.</p><button class="button button-dark" type="button" data-action="close-dialog">Voltar ao protótipo <span aria-hidden="true">↗</span></button>
+      <span class="dialog-symbol" aria-hidden="true">✳</span><div id="dialog-content"></div>
     </dialog>
     <div class="toast" role="status" aria-live="polite"></div>
   </body>

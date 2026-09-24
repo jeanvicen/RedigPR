@@ -1,0 +1,124 @@
+/* Leitura, estado local e diálogos interativos do protótipo */
+[hidden] { display: none !important; }
+.page-footer { flex-wrap: wrap; row-gap: 6px; }
+:root {
+  --muted: #68746b;
+}
+
+/* Tipografia: informações auxiliares continuam secundárias, nunca microscópicas. */
+.new-session { font-size: 13px; }
+.new-session kbd { font-size: 10px; }
+.nav-label, .weekly-mini-top { font-size: 10px; }
+.nav-item { font-size: 13px; }
+.weekly-mini > small, .profile-copy small { font-size: 10px; }
+.profile-copy strong { font-size: 11px; }
+.breadcrumbs { font-size: 12px; }
+.prototype-pill { font-size: 9px; }
+.eyebrow { font-size: 10px; }
+.welcome-row .eyebrow { font-size: 10px; }
+.demo-note, .section-caption, .view-intro > p:last-child { font-size: 12px; }
+.hero-overline { font-size: 10px; }
+.hero-copy > p { font-size: 13px; }
+.hero-footnote { font-size: 11px; }
+.button { font-size: 12px; }
+.card-kicker, .path-index, .reference-type, .filter-label { font-size: 10px; }
+.quick-card p, .path-card > p, .reference-card > p, .empty-writing > p { font-size: 12px; }
+.quick-card h3 { font-size: 14px; }
+.text-link, .path-meta, .reference-footer, .lesson-copy > small { font-size: 10px; }
+.lesson-copy .card-kicker { font-size: 9px; }
+.lesson-copy h3 { font-size: 12px; }
+.lesson-copy p { font-size: 10px; }
+.page-footer, .demo-disclaimer { font-size: 10px; }
+.filter-pill { font-size: 11px; }
+.toast { font-size: 12px; }
+.dialog-copy { font-size: 13px; }
+.dialog-copy > p { margin: 0 0 14px; }
+.prototype-dialog { max-height: calc(100vh - 32px); overflow-y: auto; }
+.prototype-dialog h2 { font-size: 29px; }
+
+/* Formulários e ações explicam o que acontece antes de guardar algo. */
+.dialog-form { display: grid; gap: 9px; }
+.dialog-form label { margin-top: 5px; color: #35453a; font-size: 12px; font-weight: 700; }
+.dialog-form input, .dialog-form select, .dialog-form textarea {
+  width: 100%;
+  min-height: 43px;
+  padding: 10px 11px;
+  border: 1px solid #d7ddd2;
+  border-radius: 7px;
+  background: #fffefa;
+  color: var(--ink);
+  font: 13px/1.5 var(--sans);
+}
+.dialog-form textarea { min-height: 132px; resize: vertical; }
+.dialog-form input:focus, .dialog-form select:focus, .dialog-form textarea:focus { outline: 3px solid #b8cba9; outline-offset: 1px; border-color: #6b8b69; }
+.form-hint, .form-meta { margin: 0; color: #69766c; font-size: 11px; line-height: 1.55; }
+.form-meta { display: flex; justify-content: space-between; gap: 12px; }
+.dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 17px; }
+.dialog-actions .button { margin-top: 0; }
+.button-danger { border: 1px solid #efd4cf; background: #fbefec; color: #8b4339; }
+.button-danger:hover { background: #f6ded8; }
+.lesson-steps { display: grid; gap: 11px; margin: 15px 0; padding-left: 22px; color: #47564b; font-size: 12px; line-height: 1.6; }
+.lesson-steps li { padding-left: 3px; }
+.lesson-takeaway { margin: 13px 0; padding: 13px 14px; border: 1px solid #e0e6da; border-radius: 8px; background: #f0f3e9; }
+.lesson-takeaway strong { color: #425b48; font-size: 11px; }
+.lesson-takeaway p, .lesson-takeaway blockquote { margin: 6px 0 0; color: #39483d; font-family: var(--serif); font-size: 16px; line-height: 1.5; }
+.lesson-takeaway blockquote { margin-left: 0; }
+
+/* Rascunhos locais: edição, retomada e exclusão com confirmação. */
+.draft-header { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 2px 0 14px; }
+.draft-header h2 { margin: 6px 0 0; font-family: var(--serif); font-size: 22px; font-weight: 500; }
+.draft-header h2 span { color: #71806f; font-family: var(--sans); font-size: 13px; }
+.draft-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 20px; margin-bottom: 10px; padding: 17px 18px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); }
+.draft-card-copy { min-width: 0; }
+.draft-card h3 { margin: 7px 0 5px; font-size: 16px; font-weight: 680; }
+.draft-card p { display: -webkit-box; overflow: hidden; margin: 0; color: #5f6c62; font-size: 12px; line-height: 1.6; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.draft-card-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 7px; }
+.draft-card-actions .button { min-height: 36px; font-size: 11px; }
+.delete-draft { min-height: 34px; padding: 0 9px; border: 0; border-radius: 6px; background: transparent; color: #8b5147; cursor: pointer; font-size: 11px; }
+.delete-draft:hover { background: #fbefec; }
+.reference-footer button { display: inline-flex; width: auto; min-height: 29px; align-items: center; gap: 5px; padding: 0 9px; border-radius: 16px; background: #f6f7f2; font-size: 10px; white-space: nowrap; }
+.reference-footer button span { font-size: 12px; }
+.filter-empty { margin: 0 0 12px; padding: 18px; border: 1px dashed #d9ded5; border-radius: 9px; color: #68746b; font-size: 12px; text-align: center; }
+
+@media (max-width: 900px) {
+  .quick-card p, .path-card > p, .reference-card > p { font-size: 11px; }
+  .path-meta { font-size: 9px; }
+}
+@media (max-width: 680px) {
+  .welcome-row .eyebrow { font-size: 10px; }
+  .demo-note { font-size: 10px; }
+  .prototype-pill { font-size: 9px; }
+  .hero-copy > p { font-size: 12px; }
+  .quick-card p, .path-card > p, .reference-card > p, .empty-writing > p { font-size: 12px; }
+  .section-caption { font-size: 11px; }
+  .draft-header { align-items: flex-start; flex-direction: column; }
+  .draft-card { grid-template-columns: 1fr; gap: 13px; padding: 15px; }
+  .draft-card-actions { justify-content: flex-start; }
+  .dialog-actions { justify-content: stretch; }
+  .dialog-actions .button { flex: 1 1 auto; }
+  .prototype-dialog { padding: 23px 20px; }
+  .prototype-dialog h2 { font-size: 26px; }
+}
+@media (max-width: 370px) {
+  .welcome-row .eyebrow { font-size: 10px; }
+  .demo-note { font-size: 10px; }
+}
+
+/* Contraste e áreas de toque consistentes em telas pequenas. */
+.demo-note, .section-caption, .card-kicker, .path-index, .reference-type,
+.filter-label, .path-meta, .reference-footer, .page-footer, .demo-disclaimer,
+.lesson-copy > small, .weekly-mini-top, .weekly-mini > small, .profile-copy small,
+.progress-score > p, .progress-details > p {
+  color: #657267;
+}
+.icon-button { width: 40px; height: 40px; }
+.round-arrow { width: 40px; height: 40px; }
+.filter-pill { min-height: 38px; padding-right: 13px; padding-left: 13px; }
+.reference-footer button { min-height: 36px; }
+.dialog-close { width: 36px; height: 36px; }
+.delete-draft { min-height: 40px; padding: 0 11px; }
+@media (max-width: 370px) {
+  .topbar { padding-right: 8px; padding-left: 8px; }
+  .icon-button { width: 36px; height: 36px; }
+  .round-arrow { width: 36px; height: 36px; }
+}
