@@ -1,26 +1,28 @@
 # Como contribuir
 
-RedigPR está no estágio de protótipo interativo no navegador. Contribuições devem preservar a distinção entre exercícios e exemplos locais, conteúdo validado e funcionalidades de servidor ainda não implementadas.
+RedigPR está no estágio de protótipo interativo no navegador. Contribuições devem preservar a distinção entre conteúdo demonstrativo e material validado, e entre a proposta de assistência por IA e uma integração realmente ativa.
 
 ## Antes de alterar
 
 1. Leia o `README.md` e `docs/PRODUCT_SCOPE.md`.
-2. Confirme que a mudança pertence ao estágio visual ou explique por que amplia o escopo.
-3. Prefira uma alteração pequena, sem adicionar bibliotecas se HTML, CSS e JavaScript nativos forem suficientes.
+2. Confirme que a mudança pertence ao estágio visual/funcional local ou explique por que amplia o escopo.
+3. Prefira mudanças pequenas e dependências nativas quando forem suficientes.
 
 ## Padrões do projeto
 
-- Use HTML semântico e rótulos acessíveis; não use elementos clicáveis sem nome ou estado discernível.
-- Mantenha o estilo visual em `src/styles.css`/`src/readability.css` e o comportamento local em `src/app.js`.
-- Preserve suporte a teclado, foco visível, telas móveis e `prefers-reduced-motion`.
-- Identifique conteúdo, números e feedbacks ilustrativos; não apresente exemplos como currículo validado, nota oficial ou recurso de IA ativo.
-- Não inclua tokens, chaves de API, dados pessoais, redações reais ou credenciais nos arquivos e commits.
-- Não envie textos de estudante a serviços externos. Chamadas à Groq dependem de uma futura API segura e de requisitos de privacidade definidos.
+- Use HTML semântico, rótulos acessíveis e estados discerníveis.
+- Mantenha estilos em `src/styles.css`/`src/readability.css` e comportamentos locais em `src/app.js`.
+- Preserve navegação por teclado, foco visível, contraste, legibilidade em telas estreitas e suporte a `prefers-reduced-motion`.
+- Não remova as configurações de modo claro/escuro, tamanho de texto ou redução de movimento.
+- Rascunhos e preferências ficam no `localStorage` deste dispositivo; não adicione sincronização implícita ou envio de redações pela rede.
+- Identifique temas, referências, estatísticas e feedbacks ilustrativos; não apresente conteúdo como currículo validado, nota oficial ou recurso de IA ativo.
+- Groq não está conectada. Não inclua tokens, chaves, dados pessoais, redações reais ou credenciais em arquivos e commits. Qualquer integração futura requer uma API segura e decisões de privacidade aprovadas.
+- Preserve a identificação honesta do assistente como planejado/inativo até que exista integração real.
 
-## Conferência local
+## Conferência antes de enviar
 
-Inicie `python3 -m http.server 4173` na raiz e verifique a navegação em desktop e em tela móvel. Teste todos os botões, filtros, formulários, menu e exclusão de rascunho por teclado e toque. Confirme que os textos ficam no `localStorage`, não são enviados por rede, observe o console e confira o diff.
+Sirva a raiz do projeto localmente com `python3 -m http.server 4173` e valide em navegador. Percorra navegação, menu, filtros, diálogos, exercícios e formulários. Teste configuração, criação/edição/retomada/exclusão de um rascunho, salvamento após sair do editor, contadores e exportação `.txt`. Confira também largura móvel, foco por teclado, persistência de preferências, console, requisições de rede e ausência de dados de teste no armazenamento. Remova qualquer rascunho sintético criado durante a verificação.
 
 ## Commits e mudanças
 
-Use mensagens diretas, preferencialmente no padrão Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`). Pull requests devem explicar o objetivo, o que mudou, como foi verificado e incluir capturas de tela quando houver alterações visuais.
+Use mensagens diretas, preferencialmente no padrão Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`). Pull requests devem explicar objetivo, arquivos alterados, verificações realizadas e comportamentos ainda não validados; inclua capturas quando houver alterações visuais.

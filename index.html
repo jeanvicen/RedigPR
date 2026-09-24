@@ -69,8 +69,9 @@
             <div class="breadcrumbs"><span>Seu espaço</span><span class="crumb-slash">/</span><strong id="page-name">Visão geral</strong></div>
           </div>
           <div class="topbar-right">
-            <span class="prototype-pill"><i aria-hidden="true"></i> PROTÓTIPO VISUAL</span>
+            <span class="prototype-pill"><i aria-hidden="true"></i> PROTÓTIPO INTERATIVO</span>
             <button class="icon-button notification-button" type="button" aria-label="Abrir avisos" data-action="notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg></button>
+            <button class="icon-button settings-button" type="button" aria-label="Abrir configurações" data-action="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z"/><path d="m19.4 13.5 1.1.9-1.3 2.3-1.4-.5a7.9 7.9 0 0 1-1.4.8l-.2 1.5h-2.6l-.4-1.4a7.7 7.7 0 0 1-1.6 0l-.8 1.3-2.5-1 .3-1.5a7.8 7.8 0 0 1-1.1-1.2l-1.5.2-.8-2.5 1.2-.8a7.9 7.9 0 0 1-.1-1.6l-1.2-.8 1-2.5 1.5.3a7.8 7.8 0 0 1 1.2-1.1l-.2-1.5 2.5-.8.8 1.2a7.9 7.9 0 0 1 1.6-.1l.8-1.2 2.5 1-.3 1.5a7.8 7.8 0 0 1 1.1 1.2l1.5-.2.8 2.5-1.2.8a7.9 7.9 0 0 1 .1 1.6Z"/></svg></button>
           </div>
         </header>
 
@@ -104,7 +105,7 @@
               <section class="continue-card"><div class="section-heading compact-heading"><div><p class="eyebrow eyebrow-muted">UM BOM COMEÇO</p><h2>Continue sua jornada</h2></div><span class="step-number">01 <i>/</i> 04</span></div><div class="lesson-row"><div class="lesson-symbol" aria-hidden="true"><span>R</span><i></i></div><div class="lesson-copy"><span class="card-kicker">TRILHA · FUNDAMENTOS</span><h3>O que faz uma redação funcionar?</h3><p>Conheça a estrutura por trás de um texto bem construído.</p><div class="progress-track" role="img" aria-label="Progresso demonstrativo: 32 por cento"><span style="width:32%"></span></div><small>32% concluído <span>· demonstração</span></small></div><button class="round-arrow" type="button" aria-label="Abrir aula demonstrativa" data-action="open-lesson">↗</button></div></section>
               <section class="quote-card"><span class="quote-mark" aria-hidden="true">“</span><p>Escrever melhor não é usar palavras difíceis. É fazer cada ideia chegar mais longe.</p><div class="quote-credit"><span></span> UM PRINCÍPIO REDIGPR</div><span class="quote-decoration" aria-hidden="true">✳</span></section>
             </div>
-            <footer class="page-footer"><span>REDIGPR <i>·</i> ESCRITA COM DIREÇÃO</span><span>Protótipo interativo <i>·</i> conteúdo ilustrativo</span></footer>
+            <footer class="page-footer"><span>REDIGPR <i>·</i> ESCRITA COM DIREÇÃO</span><span>Uma iniciativa com apoio da <strong class="brand-credit">KAZER</strong></span></footer>
           </section>
 
           <section class="view secondary-view" data-panel="trilhas" aria-labelledby="trilhas-title" hidden>
@@ -124,11 +125,37 @@
           </section>
 
           <section class="view secondary-view" data-panel="textos" aria-labelledby="textos-title" hidden>
-            <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> RASCUNHAR TAMBÉM É AVANÇAR</p><h1 id="textos-title">Suas ideias, em<br />processo de <em>ganhar forma.</em></h1><p>Escreva, revise e guarde rascunhos neste navegador. Só você acessa este espaço neste dispositivo.</p></div>
-            <div class="draft-header" id="draft-header" hidden><div><p class="eyebrow eyebrow-muted">SEU CADERNO</p><h2>Rascunhos guardados <span id="draft-count">0</span></h2></div><button class="button button-dark" type="button" data-action="create-text">Novo rascunho <span aria-hidden="true">＋</span></button></div>
-            <div class="draft-list" id="draft-list" aria-live="polite"></div>
-            <div class="empty-writing" id="empty-writing"><div class="empty-illustration" aria-hidden="true"><span class="empty-paper"><i></i><i></i><i></i><b>✳</b></span><span class="empty-pencil">↗</span></div><span class="card-kicker">SEU CADERNO COMEÇA AQUI</span><h2>Nenhum texto por enquanto.</h2><p>Comece um rascunho ou faça um treino guiado. Você poderá voltar e editar o texto depois.</p><button class="button button-dark" type="button" data-action="create-text">Começar a escrever <span aria-hidden="true">↗</span></button></div>
-            <p class="demo-disclaimer">Rascunhos ficam somente neste navegador; não há conta, sincronização nem envio para IA.</p>
+            <div id="textos-overview">
+              <div class="view-intro"><p class="eyebrow"><span class="eyebrow-mark"></span> RASCUNHAR TAMBÉM É AVANÇAR</p><h1 id="textos-title">Suas ideias, em<br />processo de <em>ganhar forma.</em></h1><p>Escreva, revise e guarde rascunhos neste navegador. Só você acessa este espaço neste dispositivo.</p></div>
+              <div class="draft-header" id="draft-header" hidden><div><p class="eyebrow eyebrow-muted">SEU CADERNO</p><h2>Rascunhos guardados <span id="draft-count">0</span></h2></div><button class="button button-dark" type="button" data-action="create-text">Novo rascunho <span aria-hidden="true">＋</span></button></div>
+              <div class="draft-list" id="draft-list" aria-live="polite"></div>
+              <div class="empty-writing" id="empty-writing"><div class="empty-illustration" aria-hidden="true"><span class="empty-paper"><i></i><i></i><i></i><b>✳</b></span><span class="empty-pencil">↗</span></div><span class="card-kicker">SEU CADERNO COMEÇA AQUI</span><h2>Nenhum texto por enquanto.</h2><p>Comece um rascunho ou faça um treino guiado. Você poderá voltar e editar o texto depois.</p><button class="button button-dark" type="button" data-action="create-text">Começar a escrever <span aria-hidden="true">↗</span></button></div>
+              <p class="demo-disclaimer">Rascunhos ficam somente neste navegador; não há conta, sincronização nem envio para IA.</p>
+            </div>
+            <section class="writing-workspace" id="writing-workspace" aria-labelledby="writing-title" hidden>
+              <div class="editor-toolbar">
+                <button class="editor-back" type="button" data-action="back-to-texts"><span aria-hidden="true">←</span> Meus textos</button>
+                <span class="editor-save-status" id="editor-save-status" role="status" aria-live="polite">Privado neste dispositivo</span>
+                <div class="editor-toolbar-actions"><button class="button button-outline" type="button" data-action="export-draft">Baixar .txt</button><button class="button button-dark" type="submit" form="full-writing-form">Salvar rascunho</button></div>
+              </div>
+              <div class="writing-layout">
+                <div class="writing-main">
+                  <div class="writing-heading"><div><p class="eyebrow eyebrow-muted">UM ESPAÇO SÓ SEU</p><h2 id="writing-title">Escreva no seu ritmo.</h2><p>Rascunho amplo, sem distração. Você pode salvar e continuar depois.</p></div><span class="editor-private-tag"><span aria-hidden="true">●</span> SALVO SÓ NESTE DISPOSITIVO</span></div>
+                  <div class="exercise-banner" id="exercise-banner" hidden><span class="card-kicker">SEU FOCO DE HOJE</span><p id="exercise-prompt"></p></div>
+                  <form class="full-writing-form" id="full-writing-form">
+                    <label for="essay-title">Título <span>opcional</span></label>
+                    <input id="essay-title" name="title" maxlength="90" placeholder="Dê um nome para sua ideia" />
+                    <div class="editor-label-row"><label for="essay-body">Sua redação</label><span>Escreva sem pressa; suas ideias podem evoluir.</span></div>
+                    <textarea class="essay-editor" id="essay-body" name="text" maxlength="15000" spellcheck="true" placeholder="Introdução: apresente o tema e seu ponto de vista.&#10;&#10;Desenvolvimento: construa seus argumentos e conecte as referências às suas ideias.&#10;&#10;Conclusão: retome o raciocínio e proponha um caminho possível." aria-describedby="editor-privacy-hint" required></textarea>
+                    <div class="editor-footer"><span id="editor-word-count">0 palavras</span><span id="editor-char-count">0 caracteres</span><span class="editor-footer-hint" id="editor-privacy-hint">Salve para guardar neste navegador.</span><button class="button button-dark editor-bottom-save" type="submit">Salvar rascunho</button></div>
+                  </form>
+                </div>
+                <aside class="writing-guide" aria-label="Roteiro e ajuda">
+                  <section class="writing-guide-card"><span class="card-kicker">ROTEIRO DE ESCRITA</span><h3>Uma parte de cada vez.</h3><ol><li><b>Introdução</b><span>Apresente o tema e sua tese.</span></li><li><b>Desenvolvimento</b><span>Explique seus argumentos.</span></li><li><b>Repertório</b><span>Conecte referências às ideias.</span></li><li><b>Conclusão</b><span>Feche o raciocínio com clareza.</span></li></ol><p>Não precisa ficar perfeito de primeira. Revisar também faz parte de escrever.</p></section>
+                  <section class="assistant-card"><div class="assistant-card-mark" aria-hidden="true">✳</div><span class="card-kicker">EM PREPARAÇÃO</span><h3>Assistente de escrita</h3><p>A IA poderá ajudar com sugestões depois da integração segura com a Groq. Ela ainda não analisa seus textos.</p><button class="text-link" type="button" data-action="ai-info">Conhecer a proposta <span aria-hidden="true">→</span></button></section>
+                </aside>
+              </div>
+            </section>
           </section>
 
           <section class="view secondary-view" data-panel="progresso" aria-labelledby="progresso-title" hidden>

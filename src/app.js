@@ -73,12 +73,20 @@ const focusLabels = {
   livre: "Organizar uma ideia livre",
 };
 
+const promptTemplates = {
+  tese: (topic) => `Leia o tema “${topic}”. Apresente seu ponto de vista e indique dois caminhos de argumentação.`,
+  argumento: (topic) => `Pensando no tema “${topic}”, desenvolva uma afirmação e explique por que ela ajuda a compreender o problema.`,
+  conclusao: (topic) => `Com base no tema “${topic}”, esboce uma ação, quem poderia realizá-la e o que ela pretende alcançar.`,
+  livre: (topic) => `Escolha um recorte do tema “${topic}”, registre sua ideia principal e explique por que ela importa.`,
+};
+
 const topicOptions = [
   "Desafios para combater a evasão escolar",
   "Caminhos para ampliar o acesso à cultura",
   "Impactos da desinformação na sociedade",
 ];
 
+const defaultPreferences = { theme: "light", fontSize: "normal", reduceMotion: false };
 const panels = [...document.querySelectorAll("[data-panel]")];
 const viewButtons = [...document.querySelectorAll("[data-view]")];
 const pageName = document.querySelector("#page-name");
@@ -91,9 +99,18 @@ const toast = document.querySelector(".toast");
 const draftList = document.querySelector("#draft-list");
 const emptyWriting = document.querySelector("#empty-writing");
 const draftHeader = document.querySelector("#draft-header");
+const textosOverview = document.querySelector("#textos-overview");
+const writingWorkspace = document.querySelector("#writing-workspace");
+const writingForm = document.querySelector("#full-writing-form");
+const essayTitle = document.querySelector("#essay-title");
+const essayBody = document.querySelector("#essay-body");
+const editorSaveStatus = document.querySelector("#editor-save-status");
 let toastTimer;
+let saveTimer;
 let currentView = "inicio";
 let drafts = loadDrafts();
+let preferences = loadPreferences();
+let editorState = null;
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({
@@ -120,9 +137,40 @@ function persistDrafts(nextDrafts) {
     window.localStorage.setItem("redigpr.drafts.v1", JSON.stringify(nextDrafts));
     return true;
   } catch {
-    showToast("Não consegui guardar neste navegador. Copie seu texto antes de sair.");
+    showToast("Não consegui salvar neste navegador. Copie seu texto antes de sair.");
     return false;
   }
+}
+
+function loadPreferences() {
+  try {
+    const stored = JSON.parse(window.localStorage.getItem("redigpr.preferences.v1") || "{}");
+    return {
+      theme: stored.theme === "dark" ? "dark" : "light",
+      fontSize: ["normal", "large", "xlarge"].includes(stored.fontSize) ? stored.fontSize : "normal",
+      reduceMotion: stored.reduceMotion === true,
+    };
+  } catch {
+    return { ...defaultPreferences };
+  }
+}
+
+function savePreferences() {
+  try {
+    window.localStorage.setItem("redigpr.preferences.v1", JSON.stringify(preferences));
+    return true;
+  } catch {
+    showToast("A preferência foi aplicada, mas não pôde ser guardada neste navegador.");
+    return false;
+  }
+}
+
+function applyPreferences() {
+  const root = document.documentElement;
+  root.dataset.theme = preferences.theme;
+  root.dataset.fontSize = preferences.fontSize;
+  root.dataset.reduceMotion = String(preferences.reduceMotion);
+  document.querySelector('meta[name="theme-color"]').content = preferences.theme === "dark" ? "#151d18" : "#f5f4ee";
 }
 
 function closeMenu() {
@@ -140,8 +188,22 @@ function openMenu() {
   sidebar.querySelector("[aria-current='page']")?.focus();
 }
 
+function closeWritingWorkspace() {
+  writingWorkspace.hidden = true;
+  textosOverview.hidden = false;
+  editorState = null;
+  window.clearTimeout(saveTimer);
+}
+
 function showView(name, { updateHistory = true } = {}) {
   if (!panelNames[name]) return;
+
+  if (!writingWorkspace.hidden) {
+    window.clearTimeout(saveTimer);
+    const hasText = essayBody.value.trim().length > 0;
+    if (hasText && !saveCurrentDraft({ showMessage: false })) return;
+    closeWritingWorkspace();
+  }
 
   for (const panel of panels) {
     const isCurrent = panel.dataset.panel === name;
@@ -165,7 +227,8 @@ function showView(name, { updateHistory = true } = {}) {
     const target = name === "inicio" ? `${location.pathname}${location.search}` : `#${name}`;
     if (location.hash !== (name === "inicio" ? "" : `#${name}`)) history.pushState({ view: name }, "", target);
   }
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  const reduced = preferences.reduceMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
 }
 
 function showToast(message) {
@@ -189,35 +252,16 @@ function openPracticeSetup(selectedFocus = "tese") {
     `<option value="${value}"${value === selectedFocus ? " selected" : ""}>${escapeHTML(label)}</option>`
   ).join("");
   const topics = topicOptions.map((topic) => `<option value="${escapeHTML(topic)}">${escapeHTML(topic)}</option>`).join("");
-  showDialog("TREINO GUIADO · RASCUNHO LOCAL", "Escolha seu próximo passo.", `
-    <p>Selecione um foco e um tema. Vou abrir uma atividade curta para você praticar — sem nota automática ou envio para IA.</p>
+  showDialog("TREINO GUIADO · SEU RITMO", "Escolha seu próximo passo.", `
+    <p>Selecione um foco e um tema. O editor abre em seguida, com bastante espaço para escrever.</p>
     <form class="dialog-form" id="practice-setup">
       <label for="practice-focus">O que quer praticar?</label>
       <select id="practice-focus" name="focus">${options}</select>
       <label for="practice-topic">Tema para começar</label>
       <select id="practice-topic" name="topic">${topics}</select>
-      <p class="form-hint">Temas demonstrativos: adapte o recorte e confira informações antes de usar em uma redação.</p>
-      <div class="dialog-actions"><button class="button button-outline" type="button" data-action="close-dialog">Agora não</button><button class="button button-dark" type="submit">Abrir exercício <span aria-hidden="true">→</span></button></div>
+      <p class="form-hint">Temas de demonstração — adapte o recorte e confira as informações antes de usar numa redação.</p>
+      <div class="dialog-actions"><button class="button button-outline" type="button" data-action="close-dialog">Agora não</button><button class="button button-dark" type="submit">Abrir editor <span aria-hidden="true">→</span></button></div>
     </form>`, { focus: "#practice-focus" });
-}
-
-function openExercise(focus, topic) {
-  const prompts = {
-    tese: `Leia o tema “${topic}”. Escreva uma frase que apresente seu ponto de vista e indique dois caminhos de argumentação.`,
-    argumento: `Pensando no tema “${topic}”, escreva uma afirmação e explique por que ela ajuda a compreender o problema.`,
-    conclusao: `Com base no tema “${topic}”, esboce uma ação, quem poderia realizá-la e o que ela pretende alcançar.`,
-    livre: `Escolha um recorte do tema “${topic}” e registre sua ideia principal. Depois, explique por que ela importa.`,
-  };
-  const safeTopic = escapeHTML(topic);
-  showDialog("EXERCÍCIO · SEM CORREÇÃO AUTOMÁTICA", focusLabels[focus] || focusLabels.livre, `
-    <p>${escapeHTML(prompts[focus] || prompts.livre)}</p>
-    <form class="dialog-form" id="practice-response" data-focus="${escapeHTML(focus)}" data-topic="${safeTopic}">
-      <label for="practice-answer">Seu rascunho</label>
-      <textarea id="practice-answer" name="text" rows="6" maxlength="1200" required placeholder="Escreva com suas palavras. Uma primeira versão não precisa ficar perfeita."></textarea>
-      <div class="form-meta"><span>Até 1.200 caracteres</span><span id="practice-counter">0 / 1.200</span></div>
-      <p class="form-hint">Seu texto só será guardado neste navegador se você escolher salvá-lo. Nenhuma IA vai avaliá-lo.</p>
-      <div class="dialog-actions"><button class="button button-outline" type="button" data-action="back-to-setup" data-focus="${escapeHTML(focus)}">Voltar</button><button class="button button-dark" type="submit">Guardar rascunho <span aria-hidden="true">→</span></button></div>
-    </form>`, { focus: "#practice-answer" });
 }
 
 function openLesson(lessonKey) {
@@ -240,23 +284,35 @@ function openReference(referenceKey) {
     <div class="dialog-actions"><button class="button button-outline" type="button" data-action="close-dialog">Voltar ao repertório</button><button class="button button-dark" type="button" data-action="start-practice" data-focus="argumento">Usar num exercício <span aria-hidden="true">→</span></button></div>`);
 }
 
-function openTextEditor(draftId = "") {
+function openWritingEditor(draftId = "", exercise = null) {
   const draft = drafts.find((item) => item.id === draftId);
-  showDialog(draft ? "RASCUNHO · EDIÇÃO LOCAL" : "NOVO RASCUNHO · SOMENTE NESTE NAVEGADOR", draft ? "Continue desenvolvendo sua ideia." : "Comece pela ideia que importa.", `
-    <form class="dialog-form" id="writing-form">
-      <label for="draft-title-input">Título do rascunho</label>
-      <input id="draft-title-input" name="title" maxlength="90" placeholder="Opcional · Ex.: Acesso à cultura nas cidades" />
-      <label for="draft-text-input">Seu texto</label>
-      <textarea id="draft-text-input" name="text" rows="9" maxlength="10000" required placeholder="Organize suas ideias aqui. Você poderá revisar e continuar depois."></textarea>
-      <p class="form-hint">O rascunho fica salvo neste navegador e neste dispositivo. Não há conta, sincronização nem envio para IA.</p>
-      <div class="dialog-actions"><button class="button button-outline" type="button" data-action="close-dialog">Cancelar</button><button class="button button-dark" type="submit">Salvar neste navegador <span aria-hidden="true">→</span></button></div>
-    </form>`, { focus: "#draft-title-input" });
-  const form = dialog.querySelector("#writing-form");
-  form.dataset.draftId = draft?.id || "";
-  if (draft) {
-    form.elements.title.value = draft.title;
-    form.elements.text.value = draft.text;
+  if (!writingWorkspace.hidden) {
+    window.clearTimeout(saveTimer);
+    if (essayBody.value.trim() && !saveCurrentDraft({ showMessage: false })) return;
+    closeWritingWorkspace();
   }
+  if (currentView !== "textos") showView("textos");
+  if (dialog.open) dialog.close();
+  editorState = { draftId: draft?.id || "", exercise };
+  textosOverview.hidden = true;
+  writingWorkspace.hidden = false;
+  document.querySelector("#page-name").textContent = "Escrever redação";
+  document.title = "Escrever redação · RedigPR";
+  document.querySelector("#writing-title").textContent = draft ? "Continue desenvolvendo sua ideia." : "Escreva no seu ritmo.";
+  document.querySelector("#exercise-banner").hidden = !exercise;
+  document.querySelector("#exercise-prompt").textContent = exercise ? promptTemplates[exercise.focus](exercise.topic) : "";
+  essayTitle.value = draft?.title || (exercise ? `${focusLabels[exercise.focus]} · ${exercise.topic}` : "");
+  essayBody.value = draft?.text || "";
+  editorSaveStatus.textContent = draft ? `Rascunho salvo · ${formatTime(draft.updatedAt)}` : "Comece quando quiser — salve só neste dispositivo.";
+  updateEditorCounts();
+  window.scrollTo({ top: 0, behavior: preferences.reduceMotion ? "auto" : "smooth" });
+  window.requestAnimationFrame(() => essayBody.focus());
+}
+
+function formatTime(value) {
+  const date = value ? new Date(value) : null;
+  if (!date || Number.isNaN(date.valueOf())) return "neste dispositivo";
+  return new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit" }).format(date);
 }
 
 function renderDrafts() {
@@ -304,26 +360,79 @@ function renderDrafts() {
   }
 }
 
-function saveDraft({ title, text, id = "" }) {
-  const trimmedText = text.trim();
-  if (!trimmedText) return;
+function updateEditorCounts() {
+  const text = essayBody.value;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.querySelector("#editor-word-count").textContent = `${words} ${words === 1 ? "palavra" : "palavras"}`;
+  document.querySelector("#editor-char-count").textContent = `${text.length.toLocaleString("pt-BR")} caracteres`;
+}
+
+function saveCurrentDraft({ showMessage = true } = {}) {
+  if (!editorState) return false;
+  const text = essayBody.value;
+  if (!text.trim()) {
+    editorSaveStatus.textContent = "Escreva uma parte do texto antes de salvar.";
+    if (showMessage) showToast("Escreva alguma coisa antes de salvar o rascunho.");
+    return false;
+  }
+
   const now = new Date().toISOString();
-  const existing = drafts.find((draft) => draft.id === id);
-  const inferredTitle = title.trim() || trimmedText.split(/\s+/).slice(0, 7).join(" ");
-  const nextDraft = {
+  const existing = drafts.find((draft) => draft.id === editorState.draftId);
+  const inferredTitle = essayTitle.value.trim() || text.trim().split(/\s+/).slice(0, 7).join(" ");
+  const savedDraft = {
     id: existing?.id || (window.crypto?.randomUUID ? window.crypto.randomUUID() : `draft-${Date.now()}-${Math.random().toString(16).slice(2)}`),
     title: inferredTitle,
-    text: trimmedText,
+    text,
     createdAt: existing?.createdAt || now,
     updatedAt: now,
   };
-  const nextDrafts = existing ? drafts.map((draft) => draft.id === existing.id ? nextDraft : draft) : [nextDraft, ...drafts];
-  if (!persistDrafts(nextDrafts)) return;
+  const nextDrafts = existing
+    ? drafts.map((draft) => draft.id === existing.id ? savedDraft : draft)
+    : [savedDraft, ...drafts];
+  if (!persistDrafts(nextDrafts)) {
+    editorSaveStatus.textContent = "Não foi possível salvar. Copie o texto antes de sair.";
+    return false;
+  }
+
   drafts = nextDrafts;
+  editorState.draftId = savedDraft.id;
+  essayTitle.value = savedDraft.title;
+  editorSaveStatus.textContent = `Salvo neste dispositivo · ${formatTime(savedDraft.updatedAt)}`;
   renderDrafts();
-  dialog.close();
-  showView("textos");
-  showToast("Rascunho guardado neste navegador. Você pode continuar quando quiser.");
+  if (showMessage) showToast("Rascunho salvo neste dispositivo.");
+  return true;
+}
+
+function scheduleEditorSave() {
+  updateEditorCounts();
+  if (!essayBody.value.trim()) {
+    editorSaveStatus.textContent = "Seu texto ainda está vazio. Nada foi salvo.";
+    window.clearTimeout(saveTimer);
+    return;
+  }
+  editorSaveStatus.textContent = "Alterações não salvas";
+  window.clearTimeout(saveTimer);
+  saveTimer = window.setTimeout(() => saveCurrentDraft({ showMessage: false }), 900);
+}
+
+function exportCurrentDraft() {
+  const text = essayBody.value.trim();
+  if (!text) {
+    showToast("Escreva alguma parte da redação antes de baixar o arquivo.");
+    return;
+  }
+  const title = essayTitle.value.trim() || "Minha redação";
+  const content = `${title}\n\n${text}`;
+  const file = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${title.toLocaleLowerCase("pt-BR").replace(/[^\p{L}\p{N}]+/gu, "-").replace(/^-|-$/g, "") || "redacao"}.txt`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  showToast("Arquivo .txt baixado no seu dispositivo.");
 }
 
 function confirmDeleteDraft(draftId) {
@@ -364,7 +473,7 @@ function updateReferenceFilter(category) {
 function openProfile() {
   showDialog("ÁREA DO ESTUDANTE · MODO LOCAL", "Seu espaço de escrita.", `
     <p>Este protótipo não tem cadastro. Seus rascunhos ficam no armazenamento deste navegador${drafts.length ? `; você tem ${drafts.length} ${drafts.length === 1 ? "rascunho" : "rascunhos"}` : " e só aparecem neste dispositivo"}.</p>
-    <div class="dialog-actions"><button class="button button-outline" type="button" data-action="close-dialog">Fechar</button><button class="button button-dark" type="button" data-go="textos">Abrir meus textos <span aria-hidden="true">→</span></button></div>`);
+    <div class="dialog-actions"><button class="button button-outline" type="button" data-action="settings">Configurar leitura</button><button class="button button-dark" type="button" data-go="textos">Abrir meus textos <span aria-hidden="true">→</span></button></div>`);
 }
 
 function openNotifications() {
@@ -372,6 +481,37 @@ function openNotifications() {
     <p>Você não tem avisos novos. Quando esta área evoluir, ela poderá reunir lembretes de prática e novidades importantes.</p>
     <div class="dialog-actions"><button class="button button-outline" type="button" data-action="close-dialog">Fechar</button><button class="button button-dark" type="button" data-action="new-session">Começar um treino <span aria-hidden="true">→</span></button></div>`);
 }
+
+function openAiInfo() {
+  showDialog("ASSISTENTE DE ESCRITA · GROQ", "Ajuda para pensar melhor, não para escrever por você.", `
+    <p>A proposta é que a IA ajude a revisar uma tese, explorar caminhos de argumento e dar sugestões explicadas. A integração segura com a Groq ainda não está conectada; por enquanto, este painel não lê nem envia seu texto.</p>
+    <div class="lesson-takeaway"><strong>Quando estiver disponível</strong><p>Você poderá revisar cada sugestão e decidir se faz sentido para a sua redação. A autoria continua sendo sua.</p></div>
+    <div class="dialog-actions"><button class="button button-dark" type="button" data-action="close-dialog">Entendi</button></div>`);
+}
+
+function openSettings() {
+  const checked = (value) => preferences.theme === value ? "checked" : "";
+  showDialog("PERSONALIZE SUA EXPERIÊNCIA", "Deixe o espaço mais confortável.", `
+    <form class="settings-form" id="settings-form">
+      <fieldset class="settings-fieldset"><legend>Modo de exibição</legend><label class="settings-choice"><input type="radio" name="theme" value="light" ${checked("light")}><span>Claro</span></label><label class="settings-choice"><input type="radio" name="theme" value="dark" ${checked("dark")}><span>Escuro</span></label></fieldset>
+      <label class="settings-label" for="font-size-setting">Tamanho das letras</label>
+      <select class="settings-select" id="font-size-setting" name="fontSize"><option value="normal" ${preferences.fontSize === "normal" ? "selected" : ""}>Padrão</option><option value="large" ${preferences.fontSize === "large" ? "selected" : ""}>Grande</option><option value="xlarge" ${preferences.fontSize === "xlarge" ? "selected" : ""}>Bem grande</option></select>
+      <label class="settings-toggle"><input type="checkbox" name="reduceMotion" ${preferences.reduceMotion ? "checked" : ""}><span>Reduzir animações</span></label>
+      <section class="settings-feature"><span class="card-kicker">ASSISTENTE DE ESCRITA</span><h3>IA por Groq</h3><p>Planejada para sugerir caminhos e explicar melhorias. Ainda não conectada; nada é enviado para IA nesta versão.</p><button class="text-link" type="button" data-action="ai-info">Ver como funcionará <span aria-hidden="true">→</span></button></section>
+      <section class="settings-credit"><span class="settings-credit-mark" aria-hidden="true">K</span><div><span class="card-kicker">APOIO AO PROJETO</span><strong>KAZER</strong><p>Uma iniciativa RedigPR com apoio da KAZER.</p></div></section>
+      <div class="dialog-actions"><button class="button button-outline" type="button" data-action="reset-settings">Restaurar padrão</button><button class="button button-dark" type="button" data-action="close-dialog">Concluir</button></div>
+    </form>`, { focus: "input[name='theme']" });
+}
+
+function resetSettings() {
+  preferences = { ...defaultPreferences };
+  applyPreferences();
+  savePreferences();
+  openSettings();
+  showToast("Preferências restauradas.");
+}
+
+applyPreferences();
 
 for (const button of viewButtons) {
   button.addEventListener("click", () => showView(button.dataset.view));
@@ -413,19 +553,14 @@ document.addEventListener("click", (event) => {
     case "start-practice":
       openPracticeSetup(control.dataset.focus || "tese");
       break;
-    case "back-to-setup": {
-      const selectedFocus = control.dataset.focus || "tese";
-      openPracticeSetup(selectedFocus);
-      break;
-    }
     case "reference-detail":
       openReference(control.dataset.reference);
       break;
     case "create-text":
-      openTextEditor();
+      openWritingEditor();
       break;
     case "edit-draft":
-      openTextEditor(control.dataset.draftId);
+      openWritingEditor(control.dataset.draftId);
       break;
     case "delete-draft":
       confirmDeleteDraft(control.dataset.draftId);
@@ -442,8 +577,24 @@ document.addEventListener("click", (event) => {
     case "profile":
       openProfile();
       break;
+    case "settings":
+      openSettings();
+      break;
+    case "reset-settings":
+      resetSettings();
+      break;
+    case "ai-info":
+      openAiInfo();
+      break;
     case "explore-trails":
       showView("trilhas");
+      break;
+    case "back-to-texts":
+      if (essayBody.value.trim()) saveCurrentDraft({ showMessage: false });
+      if (!essayBody.value.trim() || editorState?.draftId) showView("textos");
+      break;
+    case "export-draft":
+      exportCurrentDraft();
       break;
     default:
       break;
@@ -454,28 +605,31 @@ document.addEventListener("submit", (event) => {
   const form = event.target;
   if (form.id === "practice-setup") {
     event.preventDefault();
-    openExercise(form.elements.focus.value, form.elements.topic.value);
+    const context = { focus: form.elements.focus.value, topic: form.elements.topic.value };
+    openWritingEditor("", context);
     return;
   }
 
-  if (form.id === "practice-response") {
+  if (form.id === "full-writing-form") {
     event.preventDefault();
-    const topic = form.dataset.topic;
-    const focus = focusLabels[form.dataset.focus] || "Treino de redação";
-    saveDraft({ title: `${focus} · ${topic}`, text: form.elements.text.value });
-    return;
-  }
-
-  if (form.id === "writing-form") {
-    event.preventDefault();
-    saveDraft({ title: form.elements.title.value, text: form.elements.text.value, id: form.dataset.draftId });
+    saveCurrentDraft();
   }
 });
 
 document.addEventListener("input", (event) => {
-  if (event.target.id === "practice-answer") {
-    document.querySelector("#practice-counter").textContent = `${event.target.value.length} / 1.200`;
+  if (!writingWorkspace.hidden && (event.target === essayBody || event.target === essayTitle)) {
+    scheduleEditorSave();
   }
+});
+
+document.addEventListener("change", (event) => {
+  const target = event.target;
+  if (target.form?.id !== "settings-form") return;
+  if (target.name === "theme") preferences.theme = target.value;
+  if (target.name === "fontSize") preferences.fontSize = target.value;
+  if (target.name === "reduceMotion") preferences.reduceMotion = target.checked;
+  applyPreferences();
+  savePreferences();
 });
 
 dialog.addEventListener("click", (event) => {

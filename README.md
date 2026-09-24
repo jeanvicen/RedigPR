@@ -2,7 +2,7 @@
 
 **Escrita com direção.** Uma experiência de aprendizagem para ajudar estudantes a entender, planejar e escrever redações com mais clareza, repertório e segurança.
 
-> **Estado atual:** protótipo responsivo com interações locais. Inclui roteiros curtos de prática, exemplos guiados de repertório e rascunhos guardados neste navegador. Não há conta, sincronização, correção automática nem integração com IA.
+> **Estado atual:** protótipo responsivo com editor amplo de redação, rascunhos locais, roteiros de prática e configurações de acessibilidade. Não há conta, sincronização nem correção por IA ativa.
 
 ## Visão do produto
 
@@ -16,10 +16,15 @@ A integração planejada com modelos da Groq deverá apoiar sugestões personali
 - Cinco áreas navegáveis: Visão geral, Trilhas, Repertório, Meus textos e Meu progresso.
 - Treino guiado no navegador para praticar tese, argumentação, conclusão ou uma ideia livre.
 - Roteiros didáticos curtos e filtros por categoria; exemplos de repertório abrem guias para conectar referência e argumento.
-- Editor de rascunhos com criação, retomada, edição e exclusão. Os textos ficam no `localStorage` deste navegador e dispositivo; não há sincronização.
-- Menu móvel, diálogo acessível, avisos, atalhos de teclado, foco visível e respeito à preferência por movimento reduzido.
+- Editor dedicado e amplo, com roteiro lateral, contadores de palavras/caracteres, salvamento automático local durante a digitação, retomada de rascunhos e exportação `.txt`.
+- Configurações funcionais de modo claro/escuro, tamanho de texto (padrão, grande ou bem grande) e redução de animações; preferências guardadas neste navegador.
+- Assistente de redação apresentado como planejado, mas ainda indisponível: **Groq não está conectada**, o painel não analisa nem envia textos.
+- Menu móvel, diálogos acessíveis, foco visível, ilustrações com animação CSS em perspectiva 3D e atalhos de teclado.
+- Crédito visual “Uma iniciativa com apoio da KAZER” no rodapé e nas configurações.
 
-Os temas, referências, métricas e feedbacks são **conteúdo demonstrativo**: não equivalem a material didático validado, avaliação oficial nem correção feita por IA. Rascunhos só são guardados localmente quando a pessoa escolhe salvar; nada é enviado a um servidor.
+Os temas, referências, métricas e roteiros são **conteúdo demonstrativo**, não material didático validado, avaliação oficial ou correção por IA. Rascunhos e preferências ficam apenas no `localStorage` deste navegador e dispositivo; nada é enviado a um servidor. O modo escuro, os tamanhos de texto e a redução de animações ajudam a adaptar a leitura a cada estudante.
+
+A experiência pública da Redação Paraná serviu apenas como referência de contexto institucional e acessibilidade: [página pública da plataforma](https://redacao.pr.gov.br/) e [orientação de acesso do Governo do Paraná](https://www.educacao.pr.gov.br/servicos/Educacao/Ensino-Fundamental/Acessar-a-plataforma-Redacao-Parana-qJ3gA7on), que documenta opções de contraste e ajuste de texto. O editor autenticado não foi inspecionado nem reproduzido.
 
 ## Executar localmente
 
